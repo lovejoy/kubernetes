@@ -667,7 +667,7 @@ function kube::build::start_rsyncd_container() {
     kube::log::error "Could not get effective rsync port"
     return 1
   fi
-
+  docker-machine ssh default  -L ${mapped_port}:localhost:${mapped_port} -qTfnN
   local container_ip
   container_ip=$("${DOCKER[@]}" inspect --format '{{ .NetworkSettings.IPAddress }}' "${KUBE_RSYNC_CONTAINER_NAME}")
 
